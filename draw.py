@@ -1,10 +1,15 @@
 # draw.py — draws the entry.png front page for make.fun news-image-20261120.
 # Pure Pillow (no network): every headline, number and source below was checked
 # against the research file's verified 20 Nov 2026 list.
-# Refresh round 1: the 40-story final scored LOWER than the 33-story v1
-# (974,723 vs 977,797) — density hurt legibility at ~300 px. This version cuts
-# back to 33 stories, with larger type and more whitespace, and drops the two
-# briefs whose dates were risky (Anthropic debut = 19 Nov; Dow rout = 19 Nov).
+# Refresh round 2: refresh 1 scored 980,686 (#648) — up from the final's
+# 974,723. Keep its clean 33-story structure and legibility, but make the
+# 3 leads dominant (taller art, bigger headlines) and cut the 4 weakest
+# briefs (Spain PM, Meta net-zero, Lula/Raoni, HK police GTA stunt) for
+# one verified late story (Estonia shuts its Russia border, 6 months).
+# 30 stories total. Late check ~00:20 WIB 21 Nov: COP31 still no deal
+# (overtime), Kyiv toll confirmed 9 killed / 110+ missiles (CNN); the
+# Italy Meta fine (14 Nov) and the FAA ground stop (13 Nov) were checked
+# and REJECTED as 20-Nov news — both are date traps in 20-Nov briefings.
 # Run: python3 draw.py  -> writes entry.png (1024x1024, PNG, < 1 MiB).
 from PIL import Image, ImageDraw, ImageFont
 import math
@@ -112,21 +117,21 @@ LEADS = [
     {
         "tag": "CYCLONE AKVAN \u00b7 INDIA",
         "headline": "AKVAN HITS ODISHA",
-        "standfirst": "Landfall near Gopalpur; ~370,000 evacuated, no deaths reported, 47 trains cancelled.",
+        "standfirst": "Landfall near Gopalpur; ~370,000 evacuated, no deaths, 47 trains cancelled.",
         "source": "NDTV",
         "art": "cyclone",
     },
     {
         "tag": "RIYADH \u00b7 MIDDLE EAST",
         "headline": "MISSILE STRIKES RIYADH TOWER",
-        "standfirst": "Houthi missile damages the KAFD\u2019s PIF tower, the capital\u2019s tallest; no casualties reported.",
+        "standfirst": "Houthi missile damages the KAFD\u2019s PIF tower; no casualties reported.",
         "source": "THE JAPAN TIMES",
         "art": "tower",
     },
     {
         "tag": "COP31 \u00b7 ANTALYA",
         "headline": "COP31 DRAFT DROPS FOSSIL FUELS",
-        "standfirst": "Closing day: revised text strips every fossil-fuel reference; no deal, talks run over.",
+        "standfirst": "Closing day: revised text strips fossil-fuel references; no deal, talks run over.",
         "source": "THE HINDU",
         "art": "globe",
     },
@@ -158,10 +163,11 @@ PINS = [
 # Lead markers on the map: (letter, lon, lat) — A Akvan, B Riyadh, C Antalya.
 LEAD_PINS = [("A", 85, 20), ("B", 47, 25), ("C", 31, 37)]
 
-# 18 briefs (was 25): cut the 7 weakest / riskiest. Cut for date discipline:
-# Anthropic's debut was 19 Nov (its +17% close was Thursday) and the Dow
-# -1,084 rout was Thursday's close. Cut as soft/local: Modi FICCI, ICMR,
-# state banks, Modi meets the Waleses, India hockey.
+# 15 briefs (was 18): cut the 4 weakest — Spain's PM "mistakes" (soft/local),
+# Meta "reevaluating" net-zero (soft corporate), Lula/Raoni visit (soft),
+# HK police GTA stunt (local, duplicates grid #10) — and add one verified
+# late story: Estonia shuts its Russia border for 6 months (Just Security,
+# 20 Nov; follows the Poland airspace violation, grid #12).
 BRIEFS = [
     ("Somalia expels UAE envoy over \u2018interference\u2019", "Bangkok Post"),
     ("Brent edges up on Riyadh + Hormuz fears", "Reuters"),
@@ -174,13 +180,10 @@ BRIEFS = [
     ("Iraq deploys forces against Iran-backed militia", "Just Security"),
     ("Saudi intercepts fresh Houthi missile, 5 drones", "Bangladesh Chronicle"),
     ("European youth plan strikes in 25+ countries", "OneTurn"),
-    ("Spain\u2019s PM admits \u2018mistakes\u2019 in election debate", "Manila Times"),
+    ("Estonia shuts border with Russia for 6 months", "Just Security"),
     ("AMD slides 8% after report flags China links", "The Standard"),
     ("Mastercard & Visa let AI agents pay bills via AXS", "Straits Times"),
-    ("HK police ride GTA VI hype to warn on crime", "The Standard"),
-    ("Meta \u2018reevaluating\u2019 2030 net-zero target", "Bangkok Post"),
     ("India signs \u20b91,976-cr Barak missile upgrade", "JagranJosh"),
-    ("Lula visits ailing Amazon defender Raoni", "Bangkok Post"),
 ]
 
 DATE_CHECK = [
@@ -196,10 +199,12 @@ DATE_CHECK = [
 
 # ---------------------------------------------------------------- art panels
 def draw_cyclone(d, box):
-    """Flat-vector cyclone spiral over a coastline. No text inside the art."""
+    """Flat-vector cyclone spiral over a coastline. No text inside the art.
+    The spiral is centred in the box, so a taller box just gives it more sky."""
     x0, y0, x1, y1 = box
+    h = y1 - y0
     d.rectangle(box, fill=SKY)
-    cx, cy = x0 + 108, y0 + 78
+    cx, cy = x0 + 108, y0 + h // 2
     # spiral arms: three Archimedean spirals, rotated apart
     for start in (0, 120, 240):
         pts = []
@@ -210,15 +215,15 @@ def draw_cyclone(d, box):
         d.line(pts, fill=BLUE, width=4)
     d.ellipse([cx - 9, cy - 9, cx + 9, cy + 9], fill=PAPER)
     d.ellipse([cx - 4, cy - 4, cx + 4, cy + 4], fill=BLUE)
-    # coastline, bottom right
-    d.polygon([(x0 + 205, y1), (x0 + 235, y0 + 108), (x0 + 272, y0 + 96),
-               (x1, y0 + 104), (x1, y1)], fill=(96, 140, 92))
+    # coastline, bottom right — anchored to the box bottom
+    d.polygon([(x0 + 205, y1), (x0 + 235, y1 - 10), (x0 + 272, y1 - 22),
+               (x1, y1 - 14), (x1, y1)], fill=(96, 140, 92))
     # rain strokes, top right
     for rx, ry in [(x0 + 232, y0 + 18), (x0 + 252, y0 + 30), (x0 + 272, y0 + 14),
                    (x0 + 292, y0 + 28), (x0 + 240, y0 + 48)]:
         d.line([(rx, ry), (rx - 5, ry + 12)], fill=BLUE, width=2)
-    # landfall marker
-    d.ellipse([x0 + 238, y0 + 96, x0 + 246, y0 + 104], outline=RED, width=3)
+    # landfall marker on the coastline
+    d.ellipse([x0 + 238, y1 - 22, x0 + 246, y1 - 14], outline=RED, width=3)
 
 def draw_tower(d, box):
     """Flat-vector Riyadh skyline: PIF tower, missile arc, burst. No text."""
@@ -267,8 +272,8 @@ def draw_globe(d, box):
                 (sx + 26 * math.cos(a), sy + 26 * math.sin(a))],
                fill=(222, 160, 60), width=3)
     d.ellipse([sx - 12, sy - 12, sx + 12, sy + 12], fill=(240, 180, 60))
-    # globe
-    gx, gy, gr = x0 + 118, y0 + 82, 52
+    # globe — centred vertically in the box
+    gx, gy, gr = x0 + 118, y0 + (y1 - y0) // 2 + 6, 52
     d.ellipse([gx - gr, gy - gr, gx + gr, gy + gr], fill=(120, 178, 196))
     d.ellipse([gx - gr, gy - gr, gx + gr, gy + gr], outline=TEAL, width=3)
     # land blobs (stylised continents)
@@ -279,8 +284,8 @@ def draw_globe(d, box):
     for dy in (-26, 0, 26):
         d.arc([gx - gr, gy - gr, gx + gr, gy + gr], 200, 340, fill=TEAL, width=1)
         d.line([(gx - gr + 6, gy + dy), (gx + gr - 6, gy + dy)], fill=TEAL, width=1)
-    # draft document, right side
-    dx, dy, dw, dh = x0 + 218, y0 + 28, 76, 96
+    # draft document, right side — centred vertically in the box
+    dx, dy, dw, dh = x0 + 218, y0 + (y1 - y0 - 96) // 2, 76, 96
     d.rectangle([dx, dy, dx + dw, dy + dh], fill=(252, 250, 244),
                 outline=(26, 23, 18), width=2)
     for i, lw in enumerate((56, 48, 60, 40)):
@@ -329,7 +334,7 @@ def render():
     f_name = font(F_SANS_BOLD, 17)
     letterspace(d, (MX, y), "THE WORLD IN ONE DAY", f_name, RED, 3)
     f_ed = font(F_SANS, 12)
-    ed = "FRIDAY EDITION  \u00b7  33 STORIES  \u00b7  ALL DATED 20 NOV 2026"
+    ed = "FRIDAY EDITION  \u00b7  30 STORIES  \u00b7  ALL DATED 20 NOV 2026"
     d.text((W - MX, y + 2), ed, font=f_ed, fill=GREY, anchor="ra")
     y += 30
     d.line([(MX, y), (W - MX, y)], fill=INK, width=2)
@@ -344,7 +349,7 @@ def render():
     d.text((MX, y), "The world in one day \u2014 every story below happened, or was first "
                      "reported, on Friday 20 November 2026.",
            font=f_sub, fill=INK)
-    y += 22
+    y += 20
     d.line([(MX, y), (W - MX, y)], fill=INK, width=3)
     y += 3
     d.line([(MX, y), (W - MX, y)], fill=INK, width=1)
@@ -372,12 +377,14 @@ def render():
         d.text((cx + 12, y + 30), lab_lines[0], font=f_stat_l, fill=GREY)
     y = stat_top + 42
     d.line([(MX, y), (W - MX, y)], fill=INK, width=1)
-    y += 12
+    y += 10
 
-    # ---- three illustrated leads (headlines one size up, standfirsts up too)
+    # ---- three illustrated leads: the dominant band. Art taller (148),
+    # headlines 24pt, standfirsts 14pt — the top story must be unmistakable
+    # at 300 px, so the leads read as the page's picture, not as texture.
     f_tag = font(F_SANS_BOLD, 11)
-    f_head = font(F_SERIF_BOLD, 21)
-    f_stand = font(F_SERIF, 13)
+    f_head = font(F_SERIF_BOLD, 24)
+    f_stand = font(F_SERIF, 14)
     f_src = font(F_SANS, 10)
     lead_top = y
     for i, lead in enumerate(LEADS):
@@ -385,26 +392,26 @@ def render():
         ly = lead_top
         letterspace(d, (x, ly), lead["tag"], f_tag, RED, 1)
         ly += 17
-        ART[lead["art"]](d, (x, ly, x + COLW, ly + 118))
-        d.rectangle([x, ly, x + COLW, ly + 118], outline=INK, width=1)
-        ly += 126
+        ART[lead["art"]](d, (x, ly, x + COLW, ly + 148))
+        d.rectangle([x, ly, x + COLW, ly + 148], outline=INK, width=1)
+        ly += 156
         for ln in fit_lines(d, lead["headline"], f_head, COLW, 2):
             d.text((x, ly), ln, font=f_head, fill=INK)
-            ly += 24
+            ly += 28
         for ln in fit_lines(d, lead["standfirst"], f_stand, COLW, 2):
             d.text((x, ly), ln, font=f_stand, fill=INK)
-            ly += 17
+            ly += 18
         d.text((x, ly + 2), "\u2014 " + lead["source"], font=f_src, fill=GREY)
         if i:
-            d.line([(x - 9, lead_top), (x - 9, lead_top + 236)],
+            d.line([(x - 9, lead_top), (x - 9, lead_top + 276)],
                    fill=(190, 180, 158), width=1)
-    y = lead_top + 239
+    y = lead_top + 279
 
     # ---- section header
     f_sec = font(F_SANS_BOLD, 12)
     letterspace(d, (MX, y), "THE DAY IN BRIEF", f_sec, INK, 2)
     d.line([(MX + 150, y + 6), (W - MX, y + 6)], fill=INK, width=1)
-    y += 24
+    y += 22
 
     # ---- numbered grid: 12 stories, 2 columns x 6 rows, roomier rows
     # Row = headline line (number + headline) + tag/source line beneath.
@@ -450,7 +457,7 @@ def render():
            "Pins 1\u201312 = the stories above.  A Akvan  \u00b7  B Riyadh  \u00b7  C Antalya",
            font=font(F_SANS, 10), fill=GREY)
     # date check box (items one size up, roomier spacing)
-    d.rectangle([dc_x, row_top, dc_x + dc_w, row_top + 170], fill=(250, 244, 230),
+    d.rectangle([dc_x, row_top, dc_x + dc_w, row_top + 166], fill=(250, 244, 230),
                 outline=RED, width=2)
     f_dc_h = font(F_SANS_BOLD, 14)
     d.text((dc_x + 12, row_top + 10), "DATE CHECK \u2014 LEFT OUT ON PURPOSE",
@@ -463,18 +470,18 @@ def render():
     for item in DATE_CHECK:
         d.text((dc_x + 12, dy), "\u2022  " + item, font=f_dc, fill=INK)
         dy += 14
-    y = row_top + 176
+    y = row_top + 172
 
-    # ---- ALSO TODAY: 18 briefs, 3 columns x 6 rows, larger type
+    # ---- ALSO TODAY: 15 briefs, 3 columns x 5 rows, larger type
     letterspace(d, (MX, y), "ALSO TODAY", f_sec, INK, 2)
-    d.text((MX + 108, y + 1), "18 more stories from Friday 20 November 2026",
+    d.text((MX + 108, y + 1), "15 more stories from Friday 20 November 2026",
            font=font(F_SERIF_IT, 12), fill=GREY)
     d.line([(MX + 396, y + 6), (W - MX, y + 6)], fill=INK, width=1)
     y += 16
-    briefs = BRIEFS[:18]
+    briefs = BRIEFS[:15]
     f_brief = font(F_SERIF, 11)
     bcol_w = (CW - 2 * 16) // 3
-    per_col = 6
+    per_col = 5
     max_by = y
     for ci in range(3):
         bx = MX + ci * (bcol_w + 16)
