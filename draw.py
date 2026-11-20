@@ -108,7 +108,7 @@ LEADS = [
     {
         "tag": "CYCLONE AKVAN · INDIA",
         "headline": "AKVAN SLAMS INTO ODISHA",
-        "standfirst": "Landfall near Gopalpur; ~300,000 evacuated, 423 rescue teams out, 39 trains cancelled.",
+        "standfirst": "Landfall near Gopalpur; ~370,000 evacuated, no deaths reported, 47 trains cancelled.",
         "source": "NDTV",
         "art": "cyclone",
     },
@@ -122,7 +122,7 @@ LEADS = [
     {
         "tag": "COP31 · ANTALYA",
         "headline": "COP31 DRAFT DROPS FOSSIL FUELS",
-        "standfirst": "Closing day in Antalya: revised text strips every fossil-fuel reference; no deal yet.",
+        "standfirst": "Closing day in Antalya: revised text strips every fossil-fuel reference; no deal — talks run over.",
         "source": "THE HINDU",
         "art": "globe",
     },
@@ -131,53 +131,54 @@ LEADS = [
 GRID = [
     ("APEC", "Ministers hail \u2018Shenzhen Outlook\u2019 as APEC closes", "The Standard"),
     ("UKRAINE", "Putin: no sea or energy truce after Crimea Bridge hit", "The Japan Times"),
-    ("HORMUZ", "Three tankers hit by mines; one crew missing", "The Japan Times"),
+    ("HORMUZ", "Three tankers hit by mines; 14 Hormuz attacks in Nov", "Reuters"),
     ("GAZA", "Israel ends rare ground operation in central Gaza", "NDTV"),
     ("S. KOREA", "Top court overturns ex-PM Han\u2019s martial-law conviction", "The Japan Times"),
     ("TECH", "US cleared ~900,000 AI chips for China in six months", "The Standard"),
     ("UKRAINE", "Kushner: Russia open to NATO-style guarantees for Kyiv", "Manila Times"),
-    ("AFRICA", "Somalia expels UAE ambassador over \u2018interference\u2019", "Bangkok Post"),
-    ("MARKETS", "Wall Street sinks as Anthropic debut fails to revive AI", "The Standard"),
-    ("MARKETS", "Anthropic\u2019s ~$2tn debut tops SpaceX; shares +17%", "The Standard"),
-    ("GAMES", "GTA VI sales estimated at ~19.05m units, ~$1.84bn", "Sensor Tower"),
-    ("SPORT", "Phillips 118, Nicholls 146* as NZ reach 317/6 vs India", "Reuters"),
+    ("MARKETS", "Nasdaq\u2019s 2026 gain wiped out as AI selloff hits day six", "Barron\u2019s"),
+    ("AFRICA", "Kenya discharges last Ebola patient; 42-day countdown", "OneTurn"),
+    ("GAMES", "GTA VI ~24.6m units, ~$2.36bn: biggest launch ever", "Sensor Tower"),
+    ("UKRAINE", "Russia strikes Kyiv bridges overnight; 8 killed", "Just Security"),
+    ("POLAND", "Russia violates Poland\u2019s airspace with 3 objects", "Just Security"),
 ]
 
-# Numbered pins on the map: (grid story no., lon, lat). 11/12 sit near their region;
-# 10 (Nasdaq) is nudged off 9 (Wall St) so the two pins do not overlap.
+# Numbered pins on the map: (grid story no., lon, lat). 8 (Nasdaq) is nudged
+# off 6 (Washington) and 9 (Kenya) is nudged to the nearest land dot, so the
+# pins do not overlap on this coarse map.
 PINS = [
     (1, 114, 22), (2, 34, 45), (3, 56, 26), (4, 34, 31), (5, 127, 37),
-    (6, -77, 39), (7, 30, 50), (8, 45, 2), (9, -74, 41), (10, -88, 34),
-    (11, -122, 37), (12, 175, -41),
+    (6, -77, 39), (7, 40, 56), (8, -88, 34), (9, 26, 0), (10, -122, 37),
+    (11, 30, 50), (12, 19, 52),
 ]
 # Lead markers on the map: (letter, lon, lat) — A Akvan, B Riyadh, C Antalya.
 LEAD_PINS = [("A", 85, 20), ("B", 47, 25), ("C", 31, 37)]
 
 BRIEFS = [
-    ("Spain\u2019s PM admits \u2018mistakes\u2019 in tense election debate", "Manila Times"),
-    ("US auctions first deep-sea mining leases despite court ruling", "Bangkok Post"),
-    ("Meta \u2018reevaluating\u2019 2030 net-zero target amid AI buildout", "Bangkok Post"),
-    ("Lula visits ailing Amazon defender Raoni as Brazil recognises land", "Bangkok Post"),
-    ("Trump\u2019s camaraderie with Xi and Putin draws pushback at home", "Japan Times"),
-    ("UN: freedom of association needs no state authorisation", "Scoop"),
-    ("One year on, Gaza \u2018peace plan\u2019 has failed, scorecard finds", "Save the Children"),
-    ("Antibiotics failing against common infections, UN warns", "UN News"),
-    ("COP31 near-final texts an \u2018outrage\u2019, say campaigners", "350.org"),
-    ("Pacific faces climate reality as COP31 wraps", "Science Media Centre"),
-    ("PM Wong: no consensus is no excuse for inaction at APEC", "Straits Times"),
-    ("White House denies Trump dozed off during Xi\u2019s APEC speech", "The Standard"),
+    ("Somalia expels UAE ambassador over \u2018interference\u2019", "Bangkok Post"),
+    ("Anthropic\u2019s ~$2tn debut tops SpaceX; shares +17%", "The Standard"),
+    ("Wall St\u2019s Thursday rout: Dow \u22121,084, below 50,000", "The Standard"),
+    ("Brent edges up on Riyadh + Hormuz fears", "Reuters"),
+    ("Dozens missing after migrant boat capsizes off Senegal", "OneTurn"),
+    ("Drone strike kills 10 at gold mine in Sudan", "OneTurn"),
+    ("Bukele registers for third term in El Salvador", "OneTurn"),
+    ("US Senate passes energy-permitting bill, 62\u201333", "Bangladesh Chronicle"),
+    ("White House fires cyber chief after tech outages", "OneTurn"),
+    ("Nikkei falls 4.8% as Asia slides after Wall St rout", "OneTurn"),
+    ("Iraq deploys forces against Iran-backed militia", "Just Security"),
+    ("Saudi Arabia intercepts fresh Houthi missile, 5 drones", "Bangladesh Chronicle"),
+    ("European youth plan strikes in 25+ countries", "OneTurn"),
+    ("Spain\u2019s PM admits \u2018mistakes\u2019 in election debate", "Manila Times"),
+    ("Meta \u2018reevaluating\u2019 2030 net-zero target", "Bangkok Post"),
+    ("Lula visits ailing Amazon defender Raoni", "Bangkok Post"),
     ("AMD slides 8% after report flags China links", "The Standard"),
-    ("US jobless claims 203,000", "Center Times"),
     ("Mastercard & Visa let AI agents pay bills via AXS", "Straits Times"),
     ("Modi opens FICCI centenary convention in Delhi", "JagranJosh"),
     ("India signs \u20b91,976-cr deal to upgrade Barak missiles", "JagranJosh"),
-    ("ICMR completes 100 tech transfers for local health tech", "JagranJosh"),
+    ("ICMR completes 100 tech transfers for health tech", "JagranJosh"),
     ("State banks post \u20b91 lakh-cr profit, up 16.9%", "Education Times"),
     ("Modi meets Prince and Princess of Wales in Delhi", "Education Times"),
-    ("Hong Kong police ride GTA VI hype to warn on real crime", "The Standard"),
-    ("Florida storms force human and horse rescues", "Manila Times"),
-    ("Florida set for record 20th execution; Texas also executes", "Manila Times"),
-    ("$1.88m of cameras stolen from Hong Kong store", "The Standard"),
+    ("Hong Kong police ride GTA VI hype to warn on crime", "The Standard"),
     ("India edge New Zealand 3\u20132 to start hockey series", "NDTV"),
 ]
 
@@ -189,6 +190,7 @@ DATE_CHECK = [
     "GTA VI launch \u2014 19 Nov",
     "Gemini 4 Neon launch \u2014 19 Nov",
     "Voyager 1 reaches one light-day \u2014 18 Nov",
+    "Trump defers Iran-strikes decision to 2027 \u2014 said 19 Nov",
 ]
 
 # ---------------------------------------------------------------- art panels
@@ -326,7 +328,7 @@ def render():
     f_name = font(F_SANS_BOLD, 17)
     letterspace(d, (MX, y), "THE WORLD IN ONE DAY", f_name, RED, 3)
     f_ed = font(F_SANS, 12)
-    ed = "FRIDAY EDITION  ·  33 STORIES  ·  ALL DATED 20 NOV 2026"
+    ed = "FRIDAY EDITION  ·  40 STORIES  ·  ALL DATED 20 NOV 2026"
     d.text((W - MX, y + 2), ed, font=f_ed, fill=GREY, anchor="ra")
     y += 30
     d.line([(MX, y), (W - MX, y)], fill=INK, width=2)
@@ -349,10 +351,10 @@ def render():
 
     # ---- stats strip
     stats = [
-        ("\u2248300,000", "evacuated as Akvan hits Odisha"),
-        ("Dow \u22121,084", "Wall St sinks; Nasdaq \u22122.2%"),
+        ("\u2248370,000", "evacuated as Akvan hits Odisha"),
+        ("Nasdaq \u22121.8%", "2026 gain gone at midday"),
         ("Sensex +700", "Nifty crosses 25,400"),
-        ("317/6", "NZ fight back: Phillips 118, Nicholls 146*"),
+        ("368", "NZ post 368; Nicholls 175*"),
     ]
     f_stat_n = font(F_SERIF_BOLD, 24)
     f_stat_l = font(F_SANS, 11)
@@ -363,8 +365,11 @@ def render():
         if i:
             d.line([(cx, y + 2), (cx, y + 38)], fill=(190, 180, 158), width=1)
         d.text((cx + 12, y), num, font=f_stat_n, fill=INK)
-        d.text((cx + 12, y + 28), lab, font=f_stat_l, fill=GREY)
-    y = stat_top + 42
+        # label capped to one line inside its own cell — never bleed into the
+        # next cell (a long label once ran across the whole strip)
+        lab_lines = fit_lines(d, lab, f_stat_l, cell_w - 24, 1)
+        d.text((cx + 12, y + 28), lab_lines[0], font=f_stat_l, fill=GREY)
+    y = stat_top + 40
     d.line([(MX, y), (W - MX, y)], fill=INK, width=1)
     y += 12
 
@@ -392,7 +397,7 @@ def render():
         if i:
             d.line([(x - 9, lead_top), (x - 9, lead_top + 226)],
                    fill=(190, 180, 158), width=1)
-    y = lead_top + 238
+    y = lead_top + 232
 
     # ---- section header
     f_sec = font(F_SANS_BOLD, 12)
@@ -407,7 +412,7 @@ def render():
     f_ghead = font(F_SERIF_BOLD, 14)
     f_gsrc = font(F_SANS, 10)
     grid_w = (CW - 16) // 2
-    row_h = 32
+    row_h = 30
     for idx, (tag, head, src) in enumerate(GRID):
         col = idx % 2
         row = idx // 2
@@ -444,31 +449,31 @@ def render():
            "Pins 1\u201312 = the stories above.  A Akvan  ·  B Riyadh  ·  C Antalya",
            font=font(F_SANS, 10), fill=GREY)
     # date check box
-    d.rectangle([dc_x, row_top, dc_x + dc_w, row_top + 158], fill=(250, 244, 230),
+    d.rectangle([dc_x, row_top, dc_x + dc_w, row_top + 168], fill=(250, 244, 230),
                 outline=RED, width=2)
     f_dc_h = font(F_SANS_BOLD, 13)
     d.text((dc_x + 12, row_top + 10), "DATE CHECK \u2014 LEFT OUT ON PURPOSE",
            font=f_dc_h, fill=RED)
     f_dc = font(F_SERIF, 12)
-    d.text((dc_x + 12, row_top + 32),
+    d.text((dc_x + 12, row_top + 30),
            "These big stories are NOT from 20 Nov, so they are not in this paper:",
            font=f_dc, fill=INK)
-    dy = row_top + 50
+    dy = row_top + 46
     for item in DATE_CHECK:
         d.text((dc_x + 12, dy), "\u2022  " + item, font=f_dc, fill=INK)
-        dy += 15
-    y = row_top + 166
+        dy += 14
+    y = row_top + 172
 
-    # ---- ALSO TODAY: 18 briefs, 3 columns (sources in the footer line)
+    # ---- ALSO TODAY: 25 briefs, 3 columns (sources in the footer line)
     letterspace(d, (MX, y), "ALSO TODAY", f_sec, INK, 2)
-    d.text((MX + 108, y + 1), "18 more stories from Friday 20 November 2026",
+    d.text((MX + 108, y + 1), "25 more stories from Friday 20 November 2026",
            font=font(F_SERIF_IT, 12), fill=GREY)
     d.line([(MX + 396, y + 6), (W - MX, y + 6)], fill=INK, width=1)
-    y += 20
-    briefs = BRIEFS[:18]
+    y += 18
+    briefs = BRIEFS[:25]
     f_brief = font(F_SERIF, 10)
     bcol_w = (CW - 2 * 16) // 3
-    per_col = 6
+    per_col = 9
     max_by = y
     for ci in range(3):
         bx = MX + ci * (bcol_w + 16)
@@ -484,18 +489,22 @@ def render():
                 d.text((bx, ly), "\u2022 " + ln if j == 0 else "   " + ln,
                        font=f_brief, fill=INK)
                 ly += 12
-            by = ly + 4
+            by = ly + 3
         max_by = max(max_by, by)
     y = max_by
 
-    # ---- footer: sources
+    # ---- footer: sources, two lines so the list never runs off the page
     f_foot = font(F_SANS, 9)
     d.line([(MX, y), (W - MX, y)], fill=INK, width=1)
     y += 7
     d.text((W // 2, y),
            "Sources: NDTV \u00b7 Reuters \u00b7 The Hindu \u00b7 The Japan Times \u00b7 The Standard \u00b7 "
-           "Bangkok Post \u00b7 Manila Times \u00b7 Straits Times \u00b7 Scoop \u00b7 JagranJosh \u00b7 "
-           "ProPakistani \u00b7 Sensor Tower \u2014 every story dated 20 Nov 2026.",
+           "Bangkok Post \u00b7 Manila Times \u00b7 Straits Times \u00b7 JagranJosh \u00b7 Education Times \u00b7",
+           font=f_foot, fill=GREY, anchor="ma")
+    y += 11
+    d.text((W // 2, y),
+           "Barron\u2019s \u00b7 Just Security \u00b7 OneTurn \u00b7 Bangladesh Chronicle \u00b7 Sensor Tower "
+           "\u2014 every story dated 20 Nov 2026.",
            font=f_foot, fill=GREY, anchor="ma")
     return img, y
 
